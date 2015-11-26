@@ -1,8 +1,10 @@
 import pafy , sys , logging
 from PyQt4 import QtGui
+from PyQt4.QtCore import SIGNAL
 from PyQt4.QtWebKit import QWebView, QWebSettings
 from gui.ui_youtube import Ui_MainWindow
 from workers.watch_video import Watch
+from threads.thread_download import Dwnload
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s.%(msecs)03d: %(message)s', datefmt='%H:%M:%S')
 logging.disable(logging.DEBUG)
@@ -12,7 +14,12 @@ class ProjectWreck(QtGui.QMainWindow,Ui_MainWindow):
         super(ProjectWreck,self).__init__(parent)
         self.setupUi(self)
         self.push_url.clicked.connect(self.url_handler)
+        self.pushButton.clicked.connect(self.download_handler)
 
+
+    def download_handler(self):
+         self.get_thread = Dwnload(self.lineEdit.text())
+         self.get_thread.start()
 
     def url_handler(self):
         self.webView.settings().setAttribute(QWebSettings.PluginsEnabled,True)
