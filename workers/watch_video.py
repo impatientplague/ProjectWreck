@@ -6,6 +6,6 @@ class Watch(object):
 
 
     def get_url(self):
-       video = pafy.new(self.url)
+       video = pafy.new(self.url, basic= False)
        best = video.getbest()
        return best.url

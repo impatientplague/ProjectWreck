@@ -5,34 +5,34 @@ class Stats(object):
         self.url = url
 
     def get_title(self):
-        video = pafy.new(self.url)
+        video = pafy.new(self.url, basic= False)
         title = video.title
         return title
 
     def get_description(self):
-        video = pafy.new(self.url)
+        video = pafy.new(self.url, basic= False)
         desc = video.description
         return desc
 
     def get_author(self):
-        video = pafy.new(self.url)
+        video = pafy.new(self.url, basic= False)
         auth = video.author
         return auth
 
     def get_views(self):
-        video = pafy.new(self.url)
+        video = pafy.new(self.url, basic= False)
         views = video.viewcount
-        return views
+        return format(views,',')
 
     def get_likes(self):
-        video = pafy.new(self.url)
+        video = pafy.new(self.url, basic= False)
         likes = video.likes
-        return likes
+        return format(likes,',')
 
     def get_dislikes(self):
-        video = pafy.new(self.url)
+        video = pafy.new(self.url, basic= False)
         dislikes = video.dislikes
-        return dislikes
+        return format(dislikes,',')
 
 
 
