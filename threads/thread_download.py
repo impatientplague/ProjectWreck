@@ -1,7 +1,11 @@
 from PyQt4.QtCore import QThread
+from PyQt4 import QtCore
 import pafy
+import time
 
 class Dwnload(QThread):
+
+    taskFinished = QtCore.pyqtSignal()
 
     def __init__(self, url):
         QThread.__init__(self)
@@ -15,3 +19,9 @@ class Dwnload(QThread):
         l = v.getbest()
         print("Size is %s" % l.get_filesize())
         filename = l.download()
+        time.sleep(5)
+        self.taskFinished.emit()
+
+
+
+

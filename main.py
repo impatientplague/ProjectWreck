@@ -17,21 +17,30 @@ class ProjectWreck(QtGui.QMainWindow,Ui_MainWindow):
         self.pushButton.clicked.connect(self.download_handler)
 
 
+    def call_progress(self, total, recvd, ratio, rate, eta):
+        if recvd == total:
+            print 'done'
+
     def download_handler(self):
+         self.progressBar.setRange(0,0)
+         self.pushButton.setEnabled(False)
          self.get_thread = Dwnload(self.lineEdit.text())
+         self.get_thread.taskFinished.connect(self.onFinished)
          self.get_thread.start()
+
+    def onFinished(self):
+        self.progressBar.setRange(0,1)
+        self.pushButton.setEnabled(True)
 
     def url_handler(self):
         self.webView.settings().setAttribute(QWebSettings.PluginsEnabled,True)
         self.url_fetch()
         self.set_html()
 
-
     def url_fetch(self):
         video = Watch(self.lineEdit.text())
         fetched = video.get_url()
         return fetched
-
 
     def set_html(self):
         catch = self.url_fetch()
