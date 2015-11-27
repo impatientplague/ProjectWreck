@@ -1,7 +1,7 @@
 from PyQt4.QtCore import QThread
 from PyQt4 import QtCore
 import pafy
-import time
+import time , os
 
 class Dwnload(QThread):
 
@@ -18,7 +18,7 @@ class Dwnload(QThread):
         v = pafy.new(self.url)
         l = v.getbest()
         print("Size is %s" % l.get_filesize())
-        filename = l.download(filepath="./Video/")
+        l.download(filepath="Videos")
         time.sleep(5)
         self.taskFinished.emit()
 
