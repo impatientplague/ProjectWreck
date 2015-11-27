@@ -5,6 +5,7 @@ from PyQt4.QtWebKit import QWebView, QWebSettings
 from gui.ui_youtube import Ui_MainWindow
 from workers.watch_video import Watch
 from threads.thread_download import Dwnload
+from workers.get_stats import Stats
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s.%(msecs)03d: %(message)s', datefmt='%H:%M:%S')
 logging.disable(logging.DEBUG)
@@ -36,11 +37,21 @@ class ProjectWreck(QtGui.QMainWindow,Ui_MainWindow):
         self.webView.settings().setAttribute(QWebSettings.PluginsEnabled,True)
         self.url_fetch()
         self.set_html()
+        self.stats_fetch()
 
     def url_fetch(self):
         video = Watch(self.lineEdit.text())
         fetched = video.get_url()
         return fetched
+
+    def stats_fetch(self):
+        show = Stats(self.lineEdit.text())
+        views = show.get_views()
+        likes = show.get_likes()
+        dislikes = show.get_dislikes()
+        self.views.setText(str(views))
+        self.likes.setText(str(likes))
+        self.likes_2.setText(str(dislikes))
 
     def set_html(self):
         catch = self.url_fetch()
