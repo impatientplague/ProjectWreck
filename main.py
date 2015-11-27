@@ -49,6 +49,8 @@ class ProjectWreck(QtGui.QMainWindow,Ui_MainWindow):
         views = show.get_views()
         likes = show.get_likes()
         dislikes = show.get_dislikes()
+        title = show.get_title()
+        self.setWindowTitle(title)
         self.views.setText(str(views))
         self.likes.setText(str(likes))
         self.likes_2.setText(str(dislikes))

@@ -18,7 +18,7 @@ class Dwnload(QThread):
         v = pafy.new(self.url)
         l = v.getbest()
         print("Size is %s" % l.get_filesize())
-        filename = l.download()
+        filename = l.download(filepath="./Video/")
         time.sleep(5)
         self.taskFinished.emit()
 
